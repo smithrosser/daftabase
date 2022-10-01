@@ -2,6 +2,9 @@
 #include "daftabase.h"
 #include <iostream>
 
+namespace daftabasecli
+{
+
 App::App()
 {
     // clang-format off
@@ -169,3 +172,5 @@ void App::getEntry(const cxxopts::ParseResult& result)
 
     exit(ReturnCode::Success);
 }
+
+} // namespace daftabasecli

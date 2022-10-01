@@ -1,7 +1,16 @@
-#ifndef _APPLICATION_H_
-#define _APPLICATION_H_
+#ifndef _APP_H_
+#define _APP_H_
 
 #include <cxxopts.hpp>
+
+namespace daftabasecli
+{
+
+enum ReturnCode
+{
+    Success = 0,
+    Error = 1,
+};
 
 class App
 {
@@ -9,12 +18,6 @@ private:
     cxxopts::Options m_options { "daftabase-cli", "Command-line interface for Daftabase" };
 
 public:
-    enum ReturnCode
-    {
-        Success = 0,
-        Error = 1,
-    };
-
     App();
 
     int run(int argc, char* argv[]);
@@ -28,4 +31,6 @@ private:
     void getEntry(const cxxopts::ParseResult& result);
 };
 
-#endif /* _APPLICATION_H_ */
+} // namespace daftabasecli
+
+#endif /* _APP_H_ */
