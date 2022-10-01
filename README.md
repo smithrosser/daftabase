@@ -1,3 +1,3 @@
-# tomdb
+# daftabase
 
-For-fun database implementation
+For-fun database implementation (currently a key-value store)
