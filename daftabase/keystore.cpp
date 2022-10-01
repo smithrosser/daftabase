@@ -6,6 +6,8 @@
 #include <string>
 #include <unordered_map>
 
+#include <iostream>
+
 namespace fs = std::filesystem;
 
 namespace daftabase
@@ -156,7 +158,7 @@ void KeyStore::Impl::loadEntryFromFile(const fs::directory_entry& dbEntry)
 {
     std::ifstream fin(dbEntry.path());
     std::string filename { dbEntry.path().filename().string() };
-    std::string key { filename.substr(0, filename.find_last_of("_str") + 1) };
+    std::string key { filename.substr(0, filename.find_last_of('_')) };
     std::string value;
 
     // read in raw data from file

@@ -16,6 +16,7 @@ class Daftabase
 public:
     static const std::unique_ptr<Db> create(const std::string& name);
     static const std::unique_ptr<Db> load(const std::string& name);
+    static void destroy(const std::string& name);
 };
 
 } // namespace daftabase
