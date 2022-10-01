@@ -12,7 +12,7 @@ TEST_CASE("Create empty db", "[CreateEmptyDb]")
 
     SECTION("Create db normally")
     {
-        daftabase::DbRef db { daftabase::Daftabase::create("TestDb") };
+        daftabase::DbRef db { daftabase::Daftabase::create("MgmtTestDb") };
 
         // success conditions:
         // 1) a valid database instance should be returned
@@ -24,16 +24,17 @@ TEST_CASE("Create empty db", "[CreateEmptyDb]")
         REQUIRE(itr == end(itr));
 
         db->clear();
+        REQUIRE(!fs::exists(fs::status(db->getDirectory())));
     }
 
     SECTION("Create db with name already taken")
     {
         bool isError { false };
-        daftabase::DbRef db { daftabase::Daftabase::create("TestDb") };
+        daftabase::DbRef db { daftabase::Daftabase::create("MgmtTestDb") };
 
         try
         {
-            daftabase::DbRef db { daftabase::Daftabase::create("TestDb") };
+            daftabase::DbRef db2 { daftabase::Daftabase::create("MgmtTestDb") };
         }
         catch (daftabase::Error err)
         {
@@ -56,19 +57,20 @@ TEST_CASE("Load existing database", "[LoadExistingDb]")
 
     SECTION("Load db normally")
     {
-        daftabase::DbRef db { daftabase::Daftabase::create("TestDb") };
-        daftabase::DbRef db2 { daftabase::Daftabase::load("TestDb") };
+        daftabase::DbRef db { daftabase::Daftabase::create("LoadTestDb") };
+        daftabase::DbRef db2 { daftabase::Daftabase::load("LoadTestDb") };
 
         // success conditions:
         // 1) a valid database instance should be returned
         // 2) a new folder named after the database should be created
-        REQUIRE(fs::is_directory(fs::status(db->getDirectory())));
+        REQUIRE(fs::is_directory(fs::status(db2->getDirectory())));
 
         // 3) the folder should be empty
-        const auto& itr { fs::directory_iterator(db->getDirectory()) };
+        const auto& itr { fs::directory_iterator(db2->getDirectory()) };
         REQUIRE(itr == end(itr));
 
         db->clear();
+        db2->clear();
     }
 
     SECTION("Load non-existent db")
@@ -77,7 +79,7 @@ TEST_CASE("Load existing database", "[LoadExistingDb]")
 
         try
         {
-            daftabase::DbRef db { daftabase::Daftabase::load("TestDb") };
+            daftabase::DbRef db { daftabase::Daftabase::load("NonExistentDb") };
         }
         catch (daftabase::Error err)
         {

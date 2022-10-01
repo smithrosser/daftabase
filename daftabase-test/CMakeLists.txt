@@ -1,4 +1,4 @@
-set(SRC_FILES dbmanagement-test.cpp)
+set(SRC_FILES dbmanagement-test.cpp writeread-test.cpp)
 
 add_executable(daftabase-test ${SRC_FILES})
 target_link_libraries(daftabase-test daftabase)
