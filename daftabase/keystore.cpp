@@ -17,17 +17,19 @@ public:
     Impl(const std::string& name, bool isNewDb);
     virtual ~Impl();
 
-    virtual std::string get(const std::string& key) const;
-    virtual std::string set(const std::string& key, const std::string& value);
+    std::string get(const std::string& key);
+    void set(const std::string& key, const std::string& value);
 
-    virtual void clear();
+    std::string getDirectory();
+
+    void clear();
 };
 
 // KeyStore top-level API functions
 // --------------------------------------------------------------------------------------------------------------------
 
 KeyStore::KeyStore(const std::string& name, bool isNewDb)
-    : m_pImpl(std::make_unique<KeyStore::Impl>(name))
+    : m_pImpl(std::make_unique<KeyStore::Impl>(name, isNewDb))
 {
 }
 
@@ -35,14 +37,19 @@ KeyStore::~KeyStore()
 {
 }
 
-std::string KeyStore::get(const std::string& key) const
+std::string KeyStore::get(const std::string& key)
 {
     return m_pImpl->get(key);
 }
 
-std::string KeyStore::set(const std::string& key, const std::string& value)
+void KeyStore::set(const std::string& key, const std::string& value)
 {
     m_pImpl->set(key, value);
+}
+
+std::string KeyStore::getDirectory()
+{
+    return m_pImpl->getDirectory();
 }
 
 void KeyStore::clear()
@@ -58,21 +65,28 @@ KeyStore::Impl::Impl(const std::string& name, bool isNewDb)
 {
     // check for existing database with called `name`
     // load data in from filesystem
+    // or create new database
 }
 
 KeyStore::Impl::~Impl()
 {
 }
 
-std::string KeyStore::Impl::get(const std::string& key) const
+std::string KeyStore::Impl::get(const std::string& key)
 {
     // read data from in-memory map
+    return std::string("");
 }
 
-std::string KeyStore::Impl::set(const std::string& key, const std::string& value)
+void KeyStore::Impl::set(const std::string& key, const std::string& value)
 {
     // write data to in-memory map
     // flush data to filesystem
+}
+
+std::string KeyStore::Impl::getDirectory()
+{
+    return std::string("");
 }
 
 void KeyStore::Impl::clear()

@@ -1,7 +1,7 @@
 #ifndef _KEYSTORE_H_
 #define _KEYSTORE_H_
 
-#include "db.h"
+#include "include/db.h"
 #include <memory>
 
 namespace daftabase
@@ -17,10 +17,12 @@ public:
     KeyStore(const std::string& name, bool isNewDb);
     virtual ~KeyStore();
 
-    virtual std::string get(const std::string& key) const;
-    virtual std::string set(const std::string& key, const std::string& value);
+    std::string get(const std::string& key);
+    void set(const std::string& key, const std::string& value);
 
-    virtual void clear();
+    std::string getDirectory();
+
+    void clear();
 };
 
 } // namespace daftabase

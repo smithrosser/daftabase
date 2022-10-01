@@ -2,6 +2,7 @@
 #define _DAFTABASE_H_
 
 #include "db.h"
+#include "error.h"
 #include <memory>
 #include <string>
 
